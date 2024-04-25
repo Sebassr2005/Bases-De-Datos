@@ -1,0 +1,47 @@
+CREACION DE TABLAS NECESARIAS PARA EL TRIGER 
+
+
+CREATE TABLE Productos (
+    id_producto INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    precio DECIMAL(10, 2),
+    cantidad_disponible INT
+);
+
+CREATE TABLE Categorias (
+    id_categoria INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100)
+);
+
+CREATE TABLE Clientes (
+    id_cliente INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    apellido VARCHAR(100),
+    correo_electronico VARCHAR(100),
+    telefono VARCHAR(20)
+);
+
+CREATE TABLE Ventas (
+    id_venta INT AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT,
+    fecha DATE,
+    total DECIMAL(10, 2),
+    FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente)
+);
+
+CREATE TABLE Detalles_Venta (
+    id_detalle_venta INT AUTO_INCREMENT PRIMARY KEY,
+    id_venta INT,
+    id_producto INT,
+    cantidad INT,
+    precio_unitario INT,
+    FOREIGN KEY (id_venta) REFERENCES Ventas(id_venta),
+    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto)
+);
+
+CREATE TABLE IF NOT EXISTS Auditoria (
+    id_auditoria INT AUTO_INCREMENT PRIMARY KEY,
+    usuario VARCHAR(100),
+    operacion VARCHAR(100),
+    fecha_y_hora DATE
+);
