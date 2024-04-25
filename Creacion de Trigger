@@ -1,0 +1,19 @@
+SE CREA EL TRIGGER PARA AUDITAR
+
+DELIMITER //
+
+CREATE TRIGGER registro_auditoria AFTER INSERT ON VENTAS
+FOR EACH ROW
+BEGIN
+    INSERT INTO Auditoria (usuario, operacion) VALUES (USER(), 'INSERT');
+END;
+//
+
+DELIMITER ;
+
+INSERT INTO Clientes VALUES (1,'juan','sanchez','juan@gmail.com',3222144820);
+INSERT INTO Ventas VALUES (1, '2024-04-25', 100.00);
+
+SELECT * FROM Auditoria;
+
+
